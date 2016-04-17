@@ -1,0 +1,112 @@
+question,skill,answer
+Demonstrate two ways to create an empty hash,1,{}  or Hash.new
+Build a hash with two symbols as keys that each have different strings as values,1,"newhash = { :one => 1, :two 2}"
+Demonstrate how to pass a key into a hash,1,newhash[:one]
+What is returned if you pass a key that doesn't exist into a hash?,1,nil
+Demonstrate how to change the value assoc with a key in a hash,1,newhash[:one] = 1
+Are hashes ordered? Does it matter order of Keys and Pairs?,1,They are ordered in 1.9+. two hashes with the exact same key and value pairs will eval the same
+How would you return all the keys in a hash?,1,newhash.keys
+"When you return all the keys in a hash, what is their class?",2,Array 
+How do you see if a key is in a hash?,2,"newhash.keys.include?(""value"")"
+How do you return all the values from a hash?,2,newhash.values
+How would you merge one hash into another hash?,2,"newhash.merge!({:newvalue => 7, :another => 8})"
+How would you add a key value pair to an existing hash?,2,newhash[:key] = value ... or newhash.merge!({:newvalue => 7}) ... without ! to not change original
+"Are these both strings ""one"" ... 'one'",1,yes
+Make a string with quotes inside the string... in a couple ways,1,"""He said \""hi\"" to me"" .. the \ escapes the "" ..or use single quote 'He said ""hi"" to me' .. even better! OR!! %(this is ""Quote"" here!)"
+Why would you use double or single quotes?,1,"Example 'He said ""hi"" to me' and ""I don't do that"" ...double quotes to get single quote.. single to get double within"
+What are some common escape characters and how do you escape them?,2,"\"" ... \' ... \n ... \\ .... you escape with the \ (backslash)"
+How do you use flexible quotes to not have to worry about escape characters? i.e. this is a great way to create a string,3,"%(this is the string) the ""%"" is what creates the string after % can be ( ... ! ... { this is the delimiter"
+Flexible quotes with the delimiter can be used to handle newlines ... demonstrate...,3,"newstring = %{It was the best of times it was the worst of times} this is equal to ""it was the best of times\it was the worst of times\n"""
+What is a here document? describe and create one in ruby,3,"It is a string literal that preserves whitespace line breaks and such. print <<EOF
+The price is #{$Price}.
+EOF"
+What operator will concatenate 2 strings? Does it leave the strings in place?,1,The + ... yes it will leave the original strings in place
+Demonstrate how to concatenate to the end of a string,1,string1 += string2 ... will add string2 to the end of string1
+What is the shovel operator and what does it do for strings?,2,The <<  It will concatenate .. same as += string1 << string2
+What is the difference between += and << ?,3,The += is that it re-assigns to the variable. << will modify that variable. 
+"What is the output? ""\n"".size? What is ""\t""?",2,1  and \t  is tabbed space
+Can you escape characters in a ' ' single quote?,2,Sort of ... this will work '\\\'' ... it will escape the '
+How do you interpolate into a string?,1,"Use double quotes and #{ } within it ... ""xxxx #{var}"""
+"Show two ways to get the 4th - 6th letters out of ""One is less than two"" *ruby1.9 see below question too",2,"substring = string1[3,3] or substring = string1[3..5]"
+"How would you split this string? string =  ""One two three"" what do you get back when split?",2,newstringarray = string.split ... it returns an array split with no args will split on blank spaces
+Show how you would split with a reg expression,2,newstringarray = string1.split(/:/) the : is the matching reg expression
+Use split and join on strings/array. Is join valid on strings? What does join do to an array? what does it do to a string?,2,"newstringarray = sting1.split ... newstring = array1.join("" "") ... that will build a string with "" "" between each element... it will call to_s on each element and create a string with whatever you pass into join inserted between each element.. returns a string. You can not call join on a string."
+"a = ""one"" b = ""one"" .. does a == b? does a.object_id == b.object_id? What does == usually evaluate for",1,yes ... a == b .... but they are different objects ... == defined for strings 
+Is nil an object?,1,Yes nil is an object
+nil.nil? returns?,1,TRUE
+nil.to_s returns?,1,""""""
+nil.inspect returns?,1,"""nil"""
+Describe the is_a? function.,2,is_a? will verify class of the object. e.g. :test.is_a?(Symbol) ... returns true .. it checks the superclasses too AND MODULES .. a mixed in module will make is_a? evaluate to true
+one = :symbol1  two = :symbol1 ... are one and two the same object? ,1,Yes. both one and two have the same object_id ...
+Discuss method names and their relationship to symbols,2,All method names will become symbols. (maybe something to do with making sure there is only one.... you can define it again / add to it... but there is just one)
+"is :symb == :""symb""? or :name = :""name""",2,"yes, Ruby turns the quote into a symbol"
+Ruby Symbols can never be garbage collected? is this true in 1.9?,3,TRUE
+How can you make a string into a symbol?,2,"""string"".to_sym"
+Build a symbol that has spaces in it.,3,"x = :""symbol with space"""
+build a symbol with interpolation,3,"x = :""This has #{interpolation} in it"""
+What happens when you pass in a symbol to interpolated string?,3,The symbol is converted to a string
+What is the class of a Regular Expression?,2,Regexp
+Show two ways how you can match a string against a reg expression.. show...,3,"1. ""this is string""[/is/] or if a variable x[/is/] 2. x =~ /aaba/ ... [/ /] ... this returns a string NOT MATCHDATA ... to get matchdata use .match"
+What is returned when you get a match? no match?,1,1. The matching string is returned. For no match nil is returned .
+What does ? do in regexp? ,3,/ab?/ will return ab or a.  b is optional
+What does /+/ do in regexp? ,3, The + matches at least one character and can be followed by a repetition. /ab+/ matches ab or abbb.
+What does /*/ do in regexp? ,3,"* matches zero or more. /ab*/ matches a  ab abbbb....and """" "
+What does /[]/ do in regexp? ,3,"[] this will match any character in there. /[cbr]at/ matches cat, bat, rat, not zat . the [] is within a [] that starts the regexp ... this is a character class"
+What does /|/ do in regexp? ,3,| combines two expressions into a single one that matches either of the expressions
+What does /\d/ do in regexp? ,3,\d will match any digit
+What does /\s/ do in regexp? ,3,\s will match any whitespace
+What does /\w/ do in regexp? ,3,\w This is a word character defined by [/[a-zA-Z0-9_]+/] ( use \w+ to get words. Just w is JUST a word character)
+What does /. /  do in regexp? ,3,Any character except a \n
+What does /\A/  do in regexp? ,3,\A matches beginning of a string
+What does /\Z/  do in regexp? ,3,\Z matches end of a string but not a newline . \z includes the newline
+What does ^  do in regexp? ,3,^ matches the start of a line (anchor) 
+What does $  do in regexp? ,3,$ matches the end of a line (anchor) 
+What is greedy matching?,3,As many occurrences as possible are matched while still allowing the overall match to succeed. Repetition is greedy by default
+Demonstrate a range match in Regexp,3,"""this is a number 46""[/[0-9]+/] [0-9] is a range in Regexp"
+Give an example of negating a character class,3,"""new match 78""[/[^0-9]+/]"
+How do you get the negative of the character classes?,3,Capitalize it .. e.g. \W
+How would you return a group of results in an array?,3,([a-f].+) as an example this will return all the matches
+How can you take a string and return an array with all the words in it?,3,scan will take a regular expression as an parameter and return an array with all matches
+What does gsub method do?,2,"find and replace all pass in two parameters find, replace_with g-(global)sub"
+What does global method do?,2,Global methods exist in the program outside of a class definition. () are optional for params list. Having wrong number of arguments is not a syntax error. It is a runtime error. Global methods e.g. puts are defined on Kernel... Kernel is mixed into all objects and kernel
+What kind of Runtime Error is called when you call a method with wrong number of arguments?,1,ArgumentError
+Define a method with default argument values,2,"def my_method(a, b = :default)"
+Demonstrate how to define a method that takes a variable amount of arguments,2,def my_method(*args) 
+"if nothing is passed into a method with a variable arg, what is the value of that arg in the method?",2,[]
+How do you specify a return value in a method? what if you do not specify a return value?,1,"return :returnvalue, if you do not specify the last statement executed is returned ... once a return is encountered the method passes back control"
+Show two ways to call a method defined in the same class as the method you are in now.,1,x = method_defined_in_class() or x = self.method_defined_in_class() 
+define a private method in a class,2,def private_method() ...code goes here end. private :private_method . You can also define methods underneath the word private in the class
+Can you call a private method from within another method of that class. What's the wrong way to call it?,2,"Yes, you can call the private method within the class, but it will not work if you use self.private_mothod. You will get a NoMethodError"
+How do you declare a top level constant? How can you reference it?,2,"MyConstant = ""value"" you can reference it with ::MyConstant"
+How do you reference a constant in a class? ,2,You can reference it with ClassName::MyConstant or even ::ClassName::MyConstant
+Do Nested classes inherit constant values?,2,yes
+Do subclasses inherit constants from parent classes?,2,yes
+Describe static(lexical) scoping and dynamic scoping.,3,"With static (lexical) scoping, the structure of the program source code determines what variables you are referring to. With dynamic scoping, the runtime state of the program stack determines what variable you are referring to. "
+What kind of statements return a value in Ruby?,1,Every statement will return a value in Ruby
+Write an if then else in Ruby,1,if condition == true :returnval else :otherval end
+Write an if then else in ruby that assigns a value to a variable. What if the result of a if then statement does not assign a value? What is returned?,1,value = if condition == 8 :returnvalue elsif condition == 9 :othervalue else :finalthing end. If nothing matches... nil is returned.
+Assign a value with a condition operator.,2,"value = (x == 4 ? ""true_value"" : ""false_value"")"
+Assign a value with a statement modifier.,2,value = 17 if x == 7
+ Write an unless statement.,1,"unless x == 5 puts ""something"" end"
+Write a while loop.,1,while conditional [do] code end
+"Write a break statement in a loop, does it stop the whole loop?",1,"for i in 0..5 if i > 2 then break end puts ""Value of local variable is #{i}""
+end"
+Write a next statement,2,"for i in 0..5  if i < 2 then next end puts ""Value of local variable is #{i}""
+end"
+Write a for statement,1,"for i in 0..5  puts i
+end"
+What are the two things that evaluate to false when inserted into a condition statement?,1,false and nil 
+What does require do? demonstrate its call,1,It will load the file at runtime. require 'filename.rb' 
+What does the Class method ancestors do when called?,2,returns an array of all the classes and modules that a given class inherits from
+Talk about the exception class tree.,2,Object is at top. Exception inherits from Object then StandardError and RuntimeError
+Write a rescue clause? ,2,begin  # -  rescue OneTypeOfException  # -  rescue AnotherTypeOfException  # -  else # Other exceptions end  
+What does method .. fail ... do?,2,The fail method raises a runtime error just like the raise keyword.
+If an error is a RuntimeError is it also a StandardError?,2,Yes StandardError is higher up the inheritance hierarchy so if it is a RuntimeError of course it is also a StandardError
+What is a synonym for fail?,2,raise
+How could you define and raise your own exception you defined?,2,"class MySpecialException < Exception end Then you could ... raise MySpecialException ""message"""
+What class is all this assert_equal and assert_raise stuff in... what is it>,3,assert_equal and assert_raise are methods in... Test::Unit ... Test::Unit provides a rich set of assertions for ruby testing
+Can each method use do end and { } ?,1,Yes
+What does map do on an array? what is a synonym for it?,1,"Invokes the given block once for each element of self, replacing the element with the value returned by the block."
+What can you do to find all the matching elements in an array... how do you implement?,1,When you call an_array.select { |item| (item % 2) == 0 } ... will iterate over the array... passing into the block each item... it will return the items that match the condition in there
+What is the method name to finding all the matching elements in an array?,2,find_all
+What method will get the first match in an array?,2,Find will find the first element that matches a criteria an_array.find { |item| item.size > 4 }

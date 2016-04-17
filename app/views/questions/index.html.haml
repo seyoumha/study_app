@@ -1,0 +1,17 @@
+.row
+  .small-6.large-centered.columns
+    %h3 Choose your level
+  .small-6.large-centered.columns
+    = form_for @user, url: skill_levels_path, html: { method: :get } do |f|
+      =f.hidden_field :id
+      =f.select :skill_level, options_for_select({"Beginner": 1, "Intermediate": 2, "Advance": 3}) 
+      =f.submit "Let's go!", class: "button small success"
+  .small-12.large-9.columns
+    -if user_signed_in?
+      = link_to "Sign Out", destroy_user_session_path, :method=>:delete, class: 'button expand'
+    -else
+      %li= link_to "Sign Up", new_user_registration_path
+      %li= link_to "Sign In", new_user_session_path
+
+
+

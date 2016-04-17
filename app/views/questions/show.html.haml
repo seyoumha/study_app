@@ -1,0 +1,60 @@
+.row
+  .small-6.large-centered.columns
+    %h3 Ruby on Rails Level #{@question.skill}
+    .container
+      #question
+        .row
+          .small-12.large-centered.columns.text-centered
+            =@question.question
+        %hr
+      #answer  
+        .row        
+          .small-12.large-centered.columns
+            .answer
+              =@question.answer
+            %br
+    =link_to "Show Answer",'#',class: "show-answer button expanded large"      
+    .show-scores
+      How well did you know this question?
+      .small-12.large-centered.columns
+        =link_to "killed it!", question_path(question_id: @question.id, score: 1, user_id: current_user.id), method: :put, remote: :true, class: "scores button success large"
+        =link_to "Eh! Kinda", question_path(question_id: @question.id, score: 5, user_id: current_user.id), method: :put, remote: :true, class: "scores button warning large"
+        =link_to "Failed it", question_path(question_id: @question.id, score: 10, user_id: current_user.id), method: :put, remote: :true, class: "scores button alert large"
+    =link_to "Next question", question_path(format: "json"), class: "nxt button expanded large ", remote: :true 
+
+:javascript
+ 
+  $(document).ready(function(){
+    $('.nxt').hide();
+    $('.answer').hide();
+    $('.show-scores').hide();
+
+    $('.show-answer').click(function(e){
+      e.preventDefault();
+      $(this).hide();
+      $('.answer').show();
+      $('.show-scores').show();
+
+
+    });
+
+    $('.scores').bind('ajax:success', function() {
+      $('.scores').hide();
+      $('.nxt').show();
+    });
+
+    $('.nxt').on('ajax:success', function(xhr, data, jqXHR){
+      $('#question').html(data.question)
+      $('#answer').html(data.answer)
+      $('.show-scores').hide();
+      $('.nxt').hide();
+      $('.answer').hide();
+      $('.show-answer').show();
+
+
+    })
+
+    
+    
+
+  });
